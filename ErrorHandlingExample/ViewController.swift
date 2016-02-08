@@ -12,19 +12,19 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
     func fetchData() throws -> AnyObject  {
         let data = NSData(contentsOfFile: "File.txt")
-        guard let unwrappedData = data else { throw Readfailure() }
-        let json = try NSJSONSerialization.JSONObjectWithData(unwrappedData, options: .AllowFragments)
-        return json
+        if let data = data {
+            let json = try NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments)
+            return json
+        } else {
+           throw NSError(domain: "lala", code: 0, userInfo: nil)
+        }
+   
     }
     
     func throwingFunction() throws -> AnyObject {
