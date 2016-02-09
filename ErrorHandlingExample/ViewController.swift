@@ -16,17 +16,24 @@ class ViewController: UIViewController {
     }
 
     
-    func fetchData() throws -> AnyObject  {
+    func fetchData() -> AnyObject?  {
+        do {
+            return try readData()
+        } catch {
+           return nil
+        }
+    }
+    
+    
+    func readData() throws -> AnyObject? {
         let data = NSData(contentsOfFile: "File.txt")
         if let data = data {
             let json = try NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments)
             return json
-        } else {
-           throw NSError(domain: "lala", code: 0, userInfo: nil)
         }
-   
+        
+        return nil
     }
-    
     func throwingFunction() throws -> AnyObject {
         throw Readfailure()
     }
